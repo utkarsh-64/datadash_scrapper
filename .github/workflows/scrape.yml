@@ -1,0 +1,26 @@
+name: QA Web Report Scraper
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  scrape-and-log:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Install Node & Dependencies
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install Playwright
+      run: |
+        npm install -D playwright
+        npx playwright install
+
+    - name: Run Scraper (23f1001207@ds.study.iitm.ac.in)
+      run: node scrape.js
